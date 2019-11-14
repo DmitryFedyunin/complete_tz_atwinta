@@ -1,0 +1,33 @@
+.auth {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 300px;
+  margin-top: 150px;
+}
+.auht__lebel {
+  display: flex;
+  font-family: 'Roboto';
+  margin-bottom: 5px;
+}
+.auth__input {
+  display: flex;
+  margin-bottom: 5px;
+}
+.auth__button {
+  width: 100%;
+  border: none;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  color: #ffffff;
+  background-color: rgba(168,0,0,0.75);
+}
+.auth__button:hover {
+  background-color: lighten(#F44336, 10%);
+}
+.home{
+  display: flex;
+  justify-content: center;
+}
