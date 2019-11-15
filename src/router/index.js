@@ -36,22 +36,34 @@ const routes = [
   {
     path: '/workerUser/:id',
     name: 'workerUser',
-    component: WorkerUser
+    component: WorkerUser,
+    meta: {
+      requiredAuth: true
+    }
   },
   {
     path: '/profile',
     name: 'profile',
-    component: Profile
+    component: Profile,
+    meta: {
+      requiredAuth: true
+    }
   },
   {
     path: '/editProfile',
     name: 'editProfile',
-    component: EditProfile
+    component: EditProfile,
+    meta: {
+      requiredAuth: true
+    }
   },
   {
     path: '/recoveryPass',
     name: 'recoveryPass',
-    component: RecoveryPass
+    component: RecoveryPass,
+    meta: {
+      requiredAuth: true
+    }
   }
 ]
 
@@ -63,7 +75,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.guest && localStorage.getItem('token')) {
     next('/')
   } else if (to.meta.requiredAuth && !localStorage.getItem('token')) {
-    next('/')
+    next('/login')
   } else {
     next()
   }
