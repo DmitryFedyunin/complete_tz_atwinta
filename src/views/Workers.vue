@@ -1,5 +1,5 @@
 <template lang="pug">
-  div
+  div(v-if="token")
     h2.ui-title-4.title-page   Сотрудники
     div(v-if="workers === 0") Загрузка...
     v-container(fluid)
@@ -32,7 +32,7 @@
                   @input="handlePageChange"
                   :length="9"
                   circle
-                  ).my-4
+                ).my-4
 </template>
 
 <script>
@@ -45,7 +45,8 @@ export default {
   },
   computed: {
     ...mapState({
-      workers: state => state.workers.workers
+      workers: state => state.workers.workers,
+      token: state => state.auth.token
     })
   },
   methods: {

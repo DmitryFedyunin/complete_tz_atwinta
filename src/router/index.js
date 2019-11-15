@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
 import Home from '../views/Home.vue'
 import Workers from '../views/Workers.vue'
-import Login from '../components/Login.vue'
-import Secure from '../components/Secure.vue'
-import WorkerUser from '../components/WorkerUser.vue'
-import Profile from '../components/Profile.vue'
-import EditProfile from '../components/EditProfile.vue'
+import Login from '../views/Login.vue'
+import WorkerUser from '../views/WorkerUser.vue'
+import Profile from '../views/Profile.vue'
+import EditProfile from '../views/EditProfile.vue'
+import RecoveryPass from '../views/RecoveryPass.vue'
 
 Vue.use(VueRouter)
 
@@ -19,20 +20,18 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: Login
-  },
-  {
-    path: '/secure',
-    name: 'secure',
-    component: Secure,
+    component: Login,
     meta: {
-      requiresAuth: true
+      guest: true
     }
   },
   {
     path: '/workers',
     name: 'workers',
-    component: Workers
+    component: Workers,
+    meta: {
+      requiredAuth: true
+    }
   },
   {
     path: '/workerUser/:id',
@@ -48,21 +47,26 @@ const routes = [
     path: '/editProfile',
     name: 'editProfile',
     component: EditProfile
+  },
+  {
+    path: '/recoveryPass',
+    name: 'recoveryPass',
+    component: RecoveryPass
   }
 ]
 
 const router = new VueRouter({
   routes
 })
+
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (localStorage.getItem('token')) {
-      next()
-      return
-    }
-    next('/login')
+  if (to.meta.guest && localStorage.getItem('token')) {
+    next('/')
+  } else if (to.meta.requiredAuth && !localStorage.getItem('token')) {
+    next('/')
   } else {
     next()
   }
 })
+
 export default router

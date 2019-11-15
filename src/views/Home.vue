@@ -1,8 +1,8 @@
 <template lang="pug">
-  div.row.grid-center
-    h1.col-xs-12.title.ui-title-4 Home Page
-    span(v-if="token").ma-2
-      button(@click="handleLogout").button-primary Logout
+  div(v-if="token").row.grid-center
+    h1.col-xs-12.title.ui-title-4 Тестовое задание
+    span.ma-2
+      button(@click="handleLogout").auth__button Logout
 </template>
 
 <script>
@@ -13,13 +13,13 @@ export default {
   computed: {
     ...mapState({
       token: state => state.auth.token
-    }),
-    ...mapActions('auth', [
-      'logout'
-    ])
+    })
   },
   methods: {
-    handleLogout: function () {
+    ...mapActions('auth', [
+      'logout'
+    ]),
+    handleLogout () {
       this.logout()
         .then(() => {
           this.$router.push('/login')
@@ -28,3 +28,5 @@ export default {
   }
 }
 </script>
+<style scoped>
+</style>

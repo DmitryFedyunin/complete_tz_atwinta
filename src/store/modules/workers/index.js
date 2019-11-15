@@ -20,7 +20,7 @@ export default {
         last_page: workers.last_page
       }
     },
-    getWorkerUser (state, workerUser) {
+    getWorkersUser (state, workerUser) {
       state.workerUser = workerUser
     }
   },
@@ -41,7 +41,7 @@ export default {
       return new Promise((resolve, reject) => {
         api.get(`/workers/${id}`)
           .then(resp => {
-            commit('getWorkerUser', resp.data)
+            commit('getWorkersUser', resp.data)
             resolve(resp.data)
           })
           .catch(err => {

@@ -1,14 +1,14 @@
 <template lang="pug">
   div(id="app").wrapper
-    div.navbar
-      div.container
-        div.navbar-content
-          router-link(v-if="token" to="/") Главная
-          router-link(v-if="token" to="/workers") Сотрудники
-          router-link(to="/login") Войти
-          router-link(v-if="token" to="/profile") Профиль
-        div.content-wrapper.wrapper
-          router-view
+    div.container
+      div.navbar-content
+        template(v-if="token")
+          router-link(to="/") Главная
+          router-link(to="/workers") Сотрудники
+          router-link(to="/profile") Профиль
+        router-link(v-else to="/login") Войти
+      div.content-wrapper.wrapper
+        router-view
 </template>
 
 <script>
@@ -37,7 +37,6 @@ export default {
 </script>
 
 <style lang="scss">
-
   #nav {
     padding: 30px;
 

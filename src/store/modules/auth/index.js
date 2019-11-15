@@ -23,9 +23,10 @@ export default {
       state.status = 'error'
       localStorage.removeItem('token')
     },
-    logout (state) {
+    logoutUser (state) {
       state.status = ''
       state.token = ''
+      localStorage.removeItem('token')
     },
     setUser (state, user) {
       state.user = user
@@ -41,7 +42,6 @@ export default {
         api.post('/auth/login', user)
           .then(resp => {
             const { token, user } = resp.data
-            // api.defaults.headers.common['Authorization'] = token
             commit('authSuccess', token, user)
             resolve(resp.data)
           })
@@ -53,9 +53,7 @@ export default {
     },
     logout ({ commit }) {
       return new Promise((resolve, reject) => {
-        commit('logout')
-        localStorage.removeItem('token')
-        delete api.defaults.headers.common['Authorization']
+        commit('logoutUser')
         resolve()
       })
     },
@@ -76,7 +74,6 @@ export default {
           .then(resp => {
             commit('editUser', resp.data)
             resolve(resp.data)
-            console.log(resp.editFrom)
           })
           .catch(err => {
             reject(err)
